@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import Navbar from "@/components/ui/Navbar";
 import { Toaster } from "@/components/ui/toaster";
 import "./global.css";
+import Providers from "@/components/Providers";
 
 export const metadata = {
   title: "Breadit",
@@ -27,11 +28,13 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-screen pt-12  bg-slate-50 antialiased">
-        {/*  @ts-expect-error server component */}
-        <Navbar />
-        {authModal}
-        <div className="container max-w-7xl mx-auto h-full pt-12"></div>
-        <main>{children}</main>
+        <Providers>
+          {/*  @ts-expect-error server component */}
+          <Navbar />
+          {authModal}
+          <div className="container max-w-7xl mx-auto h-full pt-12"></div>
+          <main>{children}</main>
+        </Providers>
         <Toaster />
       </body>
     </html>
