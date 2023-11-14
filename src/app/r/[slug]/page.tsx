@@ -4,6 +4,7 @@ import { INFINITE_SCROLLING } from "@/config";
 import { notFound } from "next/navigation";
 
 import MiniCreatePost from "@/components/ui/MiniCreatePost";
+import PostFeed from "@/components/ui/PostFeed";
 
 interface pageProps {
   params: {
@@ -25,11 +26,15 @@ const page = async ({ params }: pageProps) => {
           comments: true,
           subreddit: true,
         },
+        orderBy:{
+          createdAt: 'desc'
+
+        },
         take: INFINITE_SCROLLING,
       },
     },
   });
-
+ 
   if (!subreddit) return notFound();
 
   return (
@@ -38,7 +43,7 @@ const page = async ({ params }: pageProps) => {
         r/{subreddit.name}
       </h1>
       <MiniCreatePost session={session} />
-      {/* TODO: Show posts in user feed */}
+      <PostFeed  initialPosts={subreddit.posts} subredditName={subreddit.name}/>
     </>
   );
 };
