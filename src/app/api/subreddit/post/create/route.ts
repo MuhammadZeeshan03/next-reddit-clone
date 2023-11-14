@@ -1,7 +1,6 @@
 import { getAuthSession } from "@/lib/auth";
 import { z } from "zod";
 import { db } from "@/lib/db";
-import { subredditSubscriptionValidator } from "@/lib/validators/subreddit";
 import { postValidator } from "@/lib/validators/post";
 export async function POST(req: Request) {
     try {
@@ -36,6 +35,7 @@ export async function POST(req: Request) {
         return new Response('OK');
     } catch (err) {
         if (err instanceof z.ZodError) {
+            console.error(err);
             return new Response("Invalid Request data Passed", { status: 422 });
         }
         return new Response("Could not post to subreddit at this time, Please try again later", {

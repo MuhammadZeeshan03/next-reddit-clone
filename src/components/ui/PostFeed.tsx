@@ -31,6 +31,7 @@ const PostFeed: FC<PostFeedProps> = ({ initialPosts, subredditName }) => {
         (!!subredditName ? `&subredditName=${subredditName}` : '')
 
       const { data } = await axios.get(query)
+      console.log(data)
       return data as ExtendedPost[]
     },
 
@@ -54,8 +55,8 @@ const PostFeed: FC<PostFeedProps> = ({ initialPosts, subredditName }) => {
     <ul className='flex flex-col col-span-2 space-y-6'>
       {posts.map((post, index) => {
         const votesAmt = post.votes.reduce((acc, vote) => {
-          if (vote.type === 'UP') return acc + 1
-          if (vote.type === 'DOWN') return acc - 1
+          if (vote.type === 'upvote') return acc + 1
+          if (vote.type === 'downvote') return acc - 1
           return acc
         }, 0)
 

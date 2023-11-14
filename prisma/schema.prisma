@@ -12,8 +12,8 @@ datasource db {
 }
 
 enum VoteType {
-  UP
-  DOWN
+  upvote
+  downvote
 }
 
 model Account {

@@ -1,1 +1,1 @@
-export const INFINITE_SCROLLING = 10;
+export const INFINITE_SCROLLING = 5;
