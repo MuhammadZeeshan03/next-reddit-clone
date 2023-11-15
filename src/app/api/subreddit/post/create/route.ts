@@ -33,6 +33,7 @@ export async function POST(req: Request) {
         });
 
         return new Response('OK');
+        
     } catch (err) {
         if (err instanceof z.ZodError) {
             console.error(err);

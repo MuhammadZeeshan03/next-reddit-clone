@@ -10,6 +10,7 @@ import PostVoteServer from '../../../../../components/post-vote/PostVoteServer';
 import { ca } from 'date-fns/locale'
 import { formatTimeToNow } from '@/lib/utils'
 import EditorOutput from '../../../../../components/ui/EditorOutput';
+import CommentSection from '@/components/ui/CommentSection'
 interface PageProps {
   params: {
     postId: string
@@ -66,13 +67,13 @@ const page = async ({ params }: PageProps) => {
             {formatTimeToNow(new Date(post?.createdAt ?? cachedPost.createdAt))}
           </p>
           <h1 className='text-xl font-semibold py-2 leading-6 text-gray-900'>
-            {post?.title ?? cachedPost.title}   
+            {post?.title ?? cachedPost.title}
           </h1>
 
-          <EditorOutput content={post?.content ?? cachedPost.content}/>
-
-
-
+          <EditorOutput content={post?.content ?? cachedPost.content} />
+          <Suspense fallback={<Loader2 className='h-5 w-5 animate-spin text-zinc-500' />}>
+            {/* @ts-expect-error server component */}
+            <CommentSection postId={post?.id ?? cachedPost.id} />  </Suspense>
         </div>
       </div>
     </div>
