@@ -35,7 +35,7 @@ const CommentSection = async ({ postId }: CommentSectionProps) => {
     return <div className=' flex flex-col gap-y-4 mt-4'>
         <hr className='w-full h-px my-6' />
 
- <CreateComment postId={postId} />
+        <CreateComment postId={postId} />
 
         <div className='flex flex-col gap-y-6 mt-4'>
             {comments
@@ -49,16 +49,44 @@ const CommentSection = async ({ postId }: CommentSectionProps) => {
                     )
                     const topLevelCommentVote = topLevelComment.votes.find((vote) => vote.userId === session?.user.id
                     )
-
-
-
-
                     return <div key={topLevelComment.id} className='flex flex-col'>
                         <div className='mb-2'>
                             <PostComment
+                                postId={postId}
+                                currentVote={topLevelCommentVote}
+                                votesAmt={topLevelCommentVotesAmt}
                                 comment={topLevelComment} />
 
+
                         </div>
+                        {/* Render Replies */}
+                        {topLevelComment.replies.sort((a, b) => b.votes.length - a.votes.length)
+                            .map((reply) => {
+
+                                const reolyVotesAmt = topLevelComment.votes.reduce((acc, vote) => {
+                                    if (vote.type === 'upvote') return acc + 1
+                                    if (vote.type === 'downvote') return acc - 1
+                                    return acc
+                                }, 0
+                                )
+                                const reolyVote = topLevelComment.votes.find((vote) => vote.userId === session?.user.id
+                                )
+
+                                return <div key={reply.id} className=' ml-2 py-2 pl-4 border-1-2 border-zinc-200 '>
+
+                                    < PostComment
+                                        comment={reply}
+                                        currentVote={reolyVote}
+                                        votesAmt={reolyVotesAmt}
+                                        postId={postId}
+
+
+                                    />
+                                </div>
+
+                            })}
+
+
                     </div>
                 })
             }
