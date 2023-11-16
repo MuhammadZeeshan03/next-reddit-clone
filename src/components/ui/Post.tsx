@@ -48,7 +48,7 @@ const Post: FC<PostProps> = ({ subredditName, post, commentAmt, votesAmt: votesA
             </>) :
               null
             }
-            <span>Posted by u/{post.author.name}</span> {` `}
+            <span>Posted by u/{post.author.username}</span> {` `}
             {formatTimeToNow(new Date(post.createdAt))}
 
           </div>

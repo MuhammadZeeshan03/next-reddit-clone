@@ -35,7 +35,7 @@ function SearchBar() {
   const request = debounce(
     () => {
       refetch()
-    }
+    },300
   )
 
   const debounceRequest = useCallback(() => {
@@ -45,7 +45,7 @@ function SearchBar() {
 
   return (
 
-
+    
     <Command className='relative rounded-lg border max-w-lg z-50 overflow-visible' >
       <CommandInput
         onValueChange={(text) => {
@@ -88,3 +88,5 @@ function SearchBar() {
 }
 
 export default SearchBar
+
+
